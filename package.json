@@ -1,0 +1,24 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Amazon-like Store Front",
+  "main": "bamazoncustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonFromNYC/Bamazon.git"
+  },
+  "author": "Jonathan Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonFromNYC/Bamazon/issues"
+  },
+  "homepage": "https://github.com/JonFromNYC/Bamazon#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "inquirer": "^6.2.1",
+    "mysql": "^2.16.0"
+  }
+}
