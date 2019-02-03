@@ -17,7 +17,7 @@ connecton.connect(function (error) {
         throw error;
     }
 
-    console.log("Successfully connected to the Database");
+    console.log("Successfully connected to the Bamazon Store");
     getTable();
 });
 
