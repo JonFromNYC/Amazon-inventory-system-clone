@@ -19,7 +19,6 @@ connecton.connect(function (error) {
     
     console.clear();
     console.log("Connected to server.\nManager View.");
-    //showAllInventory(); // Shows the current state ofthe table
     menuPrompt();
 });
 
@@ -29,7 +28,7 @@ var menuPrompt = function () {
         {
             type: "list",
             name: "choice",
-            message: "Make a choice",
+            message: "What would you like to do from the choices below?",
             choices: [
                 "View Products for Sale",
                 "View Low Inventory",
@@ -39,7 +38,6 @@ var menuPrompt = function () {
             ]
         }
     ]).then(function(answer){
-        console.log("< Selection: " + answer.choice + " >");
         
         if (answer.choice === "View Products for Sale") {
             showAllInventory();
@@ -50,12 +48,14 @@ var menuPrompt = function () {
         if (answer.choice === "Add to Inventory") {
             addInventory();
         }
+        if (answer.choice === "Add New Product") {
+            newProduct();
+        }
         if (answer.choice === "Exit") {
             console.clear();
             console.log("The program is now closed.");
             process.exit();
         }
-        // connecton.end();
     })
 }
 
@@ -81,7 +81,7 @@ var findLowInventory = function () {
 
         console.clear();
         console.log("<All items with a quantity less than five>");        
-        console.table(res);// display all items with a quantity less than 5
+        console.table(res); // display all items with a quantity less than 5
         menuPrompt();
     })
 }
@@ -98,13 +98,15 @@ var addInventory = function () {
         if (error) {    
             console.error(error.message);            
         }
-
+        
         for (let i = 0; i < response.length; i++) {
             productList[i] = response[i].product_name;
             invCount[i] = response[i].stock_quantity;
             console.log(productList[i] + ":\t" + invCount[i]);
         }
 
+        console.log("\n");
+        
         inquirer.prompt([{
             type: "list",
             name: "choice",
@@ -123,7 +125,7 @@ var addInventory = function () {
                     process.exit();
                 }
 
-                /* Stop the user from entering a negative value */
+                // Stop the user from entering a negative value
                 if (value <= 0) {
                     console.log("\nYou must enter a positive integer to add inventory");
                     console.log("Try again");
@@ -143,7 +145,7 @@ var addInventory = function () {
             console.log("Adding " + answer.amountToAdd + " to " + answer.choice);
 
             let updateQuery = 'UPDATE bamazon.products SET stock_quantity = stock_quantity + ? WHERE product_name = ?';
-            connecton.query(updateQuery,[answer.amountToAdd, answer.choice], function (error, response) {
+            connecton.query(updateQuery,[answer.amountToAdd, answer.choice], function (error) {
 
                 if (error) {
                     console.error(error.sqlMessage);
@@ -151,6 +153,50 @@ var addInventory = function () {
             })
             menuPrompt();
         })
-        
     })
  }
+
+var newProduct = function () {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "newProductName",
+            message: "Enter the name of the new product:"
+        },
+        {
+            type: "input",
+            name: "newDeptName",
+            message: "Enter the department the new product goes to:"
+        },
+        {
+            type: "input",
+            name: "newPrice",
+            message: "Enter the price of the new product:"
+        },
+        {
+            type: "input",
+            name: "newQuant",
+            message: "Enter the quantity ready for sale:"
+        },
+    ]).then(function (a) {
+        
+        let newProd = "INSERT INTO bamazon.products(product_name, department_name,price,stock_quantity) VALUES (?,?,?,?)"
+        
+        connecton.query(newProd, [a.newProductName, a.newDeptName, a.newPrice, a.newQuant], function (error) {
+                if (error) {    
+                    console.error(error.sqlMessage);            
+                }
+                else {
+                    console.log("\nAdded " + a.newProductName + 
+                    " to " + a.newDeptName + 
+                    " at a price of " + a.newPrice + 
+                    " with " + a.newQuant + 
+                    " ready for sale\n");
+                }
+
+                menuPrompt();
+        })
+    })
+
+
+}
