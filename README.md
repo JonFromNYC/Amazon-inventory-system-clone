@@ -4,5 +4,11 @@
 ### Bamazon Customer View
 ___
 From the command line, enter the product you want and the quantity.
+
 ![customer](/images/customer.gif)
 
+### Bamazon Manager View
+___
+The manager can see all available items, add inventory, see what items have a specific quantity, and add new items.
+
+![manager](/images/manager.gif)
