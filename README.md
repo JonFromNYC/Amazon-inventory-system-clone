@@ -3,6 +3,6 @@
 
 ### Bamazon Customer View
 ___
-
+From the command line, enter the product you want and the quantity.
 ![customer](/images/customer.gif)
 
