@@ -22,7 +22,7 @@ connecton.connect(function (error) {
     menuPrompt();
 });
 
-
+// Main Menu Prompt
 var menuPrompt = function () {
     inquirer.prompt([
         {
@@ -56,7 +56,7 @@ var menuPrompt = function () {
             console.log("The program is now closed.");
             process.exit();
         }
-    })
+    });
 }
 
 // Function to show current table state in database
@@ -66,7 +66,7 @@ var showAllInventory = function () {
             console.error(err.sqlMessage);
         } 
             
-        console.clear();
+        console.clear();    // Clear the console
         console.table(res); // Show the table
         menuPrompt();       // Go back to main menu prompt
     })
@@ -79,10 +79,10 @@ var findLowInventory = function () {
             console.error(err.sqlMessage);
         }
 
-        console.clear();
+        console.clear();    // Clear the console
         console.log("<All items with a quantity less than five>");        
         console.table(res); // display all items with a quantity less than 5
-        menuPrompt();
+        menuPrompt();       // Go back to main menu
     })
 }
 
@@ -90,8 +90,8 @@ var findLowInventory = function () {
 var addInventory = function () {
     
     // Get every product name in the database
-    let productList = [];
-    let invCount = [];
+    let productList = [];   // Hold a list of product names
+    let invCount = [];      // Hold the inventory values
     
     connecton.query("SELECT product_name, stock_quantity FROM bamazon.products;", function (error, response) {
 
@@ -99,6 +99,7 @@ var addInventory = function () {
             console.error(error.message);            
         }
         
+        // Keep a view of the current database values while the user makes a selection
         for (let i = 0; i < response.length; i++) {
             productList[i] = response[i].product_name;
             invCount[i] = response[i].stock_quantity;
@@ -107,6 +108,7 @@ var addInventory = function () {
 
         console.log("\n");
         
+        // Prompt - ask the user for item and quantity to amend
         inquirer.prompt([{
             type: "list",
             name: "choice",
@@ -142,7 +144,7 @@ var addInventory = function () {
             }
         }
         ]).then(function (answer) {
-            console.log("Adding " + answer.amountToAdd + " to " + answer.choice);
+            console.log("Added " + answer.amountToAdd + " to " + answer.choice);
 
             let updateQuery = 'UPDATE bamazon.products SET stock_quantity = stock_quantity + ? WHERE product_name = ?';
             connecton.query(updateQuery,[answer.amountToAdd, answer.choice], function (error) {
@@ -151,11 +153,13 @@ var addInventory = function () {
                     console.error(error.sqlMessage);
                 } 
             })
-            menuPrompt();
+            
+            menuPrompt(); // Go back to main menu when done
         })
     })
  }
 
+// Function to ask the use for the new product details
 var newProduct = function () {
     inquirer.prompt([
         {
@@ -194,7 +198,7 @@ var newProduct = function () {
                     " ready for sale\n");
                 }
 
-                menuPrompt();
+                menuPrompt(); // Go back to main menu
         })
     })
 
