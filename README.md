@@ -1,5 +1,5 @@
-# Bamazon
-"Bamazon" is an Amazon-like store front using Node.js &amp; MySQL through a command line interface. The customer types in the item and quantity they want to complete a transaction.
+# Amazon Inventory System Clone
+This is an Amazon-like inventory management system using Node.js &amp; MySQL through a command line interface. The client types in the item and quantity they want to complete a transaction.
 
 ## Requirements for this program
 ___
@@ -25,7 +25,7 @@ To use the customer view, type this into to the command line:
 
     node bamazonCustomer.js
 
-## Bamazon Customer View
+## Customer View
 ___
 From the command line, enter the product you want and the quantity.
 
@@ -37,7 +37,7 @@ To execute the manager view, enter this into the command line:
 
     node bamazonManager.js
 
-## Bamazon Manager View
+## Manager View
 ___
 The manager can see all available items, add inventory, see what items have a specific quantity, and add new items.
 
