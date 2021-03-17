@@ -1,5 +1,5 @@
 # Amazon Inventory System Clone
-This is an Amazon-like inventory management system using Node.js &amp; MySQL through a command line interface. The client types in the item and quantity they want to complete a transaction.
+This is an Amazon-like inventory management system using Node.js &amp; MySQL through a command line interface. After reading the book, "The Everything Store" about the start of Amazon.com one chapter that caught my attention related to a bug. Th bug in question allowed someone to input a negative integer for the number of books they wanted to order and pay themself a refund check. When building this application I wanted to see how I could fix that bug.
 
 ## Requirements for this program
 ___
